@@ -637,7 +637,7 @@ void showLS(string args,FAT12& myFAT12){
         return;
     }
     if(valid==3){
-        myPrint("you have typed path twice");
+        myPrint("you have typed path more than once");
         lineSeperator();
         return;
     }
