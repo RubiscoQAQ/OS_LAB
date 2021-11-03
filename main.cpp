@@ -8,17 +8,17 @@ extern "C"{
     void myPrintRed_asm(const char* str,int len);
 }
 void myPrint(const string& s){
-    //myPrint_asm(s.c_str(),(int)s.length());
-    cout<<s;
+    myPrint_asm(s.c_str(),(int)s.length());
+    //cout<<s;
 }
 void myPrint_red(const string& s){
-    //myPrintRed_asm(s.c_str(),(int)s.length());
-    cout<<s;
+    myPrintRed_asm(s.c_str(),(int)s.length());
+    //cout<<s;
 }
 void lineSeperator(){
     char c = 0xa;
-    //myPrint_asm(&c, 1);
-    cout<<endl;
+    myPrint_asm(&c, 1);
+    //cout<<endl;
 }
 class clust{
 public:
@@ -693,8 +693,8 @@ void showCAT(string args,FAT12& myFAT12){
 }
 int main() {
     FAT12 myFAT12;
-    //myFAT12.setAddress("a.img");
-    myFAT12.setAddress("E:\\nasm\\homework_1\\b.img");
+    myFAT12.setAddress("a.img");
+    //myFAT12.setAddress("E:\\nasm\\homework_1\\b.img");
     myFAT12.load();
     myFAT12.init();
     myPrint("welcome to my fat12!");
@@ -753,6 +753,7 @@ int main() {
         }
     }
     myPrint("thank you for using! see you!");
+    lineSeperator();
     return 0;
 }
 
