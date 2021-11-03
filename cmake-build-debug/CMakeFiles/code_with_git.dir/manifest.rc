@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "E:/nasm/homework_2/code_with_git/cmake-build-debug/CMakeFiles/code_with_git.dir/embed.manifest"
