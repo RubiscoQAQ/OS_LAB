@@ -242,7 +242,7 @@ void ROOT_DIR::addClust(clust &c) {
 void ROOT_DIR::read() {
     for(int i=0;i<root_size;i++){
         auto* temp = new DIR_MSG(content,i*32);
-        if((int)temp->DIR_Attr!=0&&(int)temp->DIR_Attr!=15)
+        if((int)temp->DIR_NAME[0]!=0&&(int)temp->DIR_Attr!=15)
             dirs.push_back(temp);
     }
 }
@@ -384,7 +384,7 @@ public:
                     auto temp = new FAT_DIR(msg,fat,imgFile,start);
                     subDirs.push_back(temp);
                 }
-                else if(msg.DIR_Attr==32){
+                else if(msg.DIR_Attr==32||(msg.DIR_Attr==0&&msg.DIR_NAME[0]!=0)){
                     auto temp = new FAT_FILE(msg,fat,imgFile,start);
                     files.push_back(temp);
                 }
@@ -539,7 +539,7 @@ int isValid(const string& args){
         }
     }
     for(int i=0;i<args.length()-1;i++){
-        if((args[i]==' '&&args[i+1]!='-'&&args[i+1]!=' ')||(i==0&&args[i]!='-'&&args[i+1]!=' ')){
+        if((args[i]==' '&&args[i+1]!='-'&&args[i+1]!=' ')||(i==0&&args[i]!='-'&&args[i+1]!=' '&&args[i+1]!='-')){
             sum++;
             if(sum>1){
                 return 3;
@@ -691,6 +691,17 @@ void showCAT(string args,FAT12& myFAT12){
         }
     }
 }
+bool isAllSPACE(const string& s){
+    if(s.empty()){
+        return true;
+    }
+    for(char i : s){
+        if(i!=' '){
+            return false;
+        }
+    }
+    return true;
+}
 int main() {
     FAT12 myFAT12;
     myFAT12.setAddress("a.img");
@@ -721,7 +732,7 @@ int main() {
         opcode = args;
         args = "";
     }
-    while(opcode!="exit"){
+    while(opcode!="exit"||!isAllSPACE(args)){
         if(opcode.length()<=1){
             myPrint("your opcode is too short.please type the right one!");
             lineSeperator();
